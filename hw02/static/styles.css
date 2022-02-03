@@ -169,7 +169,7 @@ h2 {
     width: 100%
 }
 
-.topPost > p{
+.topPost > h3{
     font-family: 'Comfortaa', cursive;
     font-weight: 500;
     font-size: 30px;
@@ -282,6 +282,16 @@ i {
     color: gray;
     padding-left: 10px;
 }
+
+.comments > a {
+    text-decoration: none;
+    color: steelblue;
+}
+
+a:link {
+    text-decoration: none;
+    color: steelblue;
+  }
 
 /*media hide*/
 @media screen and (max-width: 600px) {

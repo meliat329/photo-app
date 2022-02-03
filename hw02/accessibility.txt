@@ -1,0 +1,5 @@
+1. I had to make some corrections to my heading structure and add alt text. 
+2. Yes, if the users are able to enter their own alt text.
+3. The only confusing part is the stories panel because there isn't text
+	indicating what that is. 
+4. If users were able to enter descriptive alt text. 

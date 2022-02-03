@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>Photo App</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+</head>
+<body>
+    <header>
+    {% include 'includes/navbar.html' %}
+    </header>
+    <div class="main">
+        <div class="leftContent">
+            {% include 'includes/stories.html' %}
+            {% include 'includes/cards.html' %}
+        </div>
+        <div class="rightContent">
+            {% include 'includes/suggestions.html' %}
+        </div>
+    </div>
+    
+</body>
+</html>
+
+<!--To add a feature so users can easily add alt-text to their images I would create an option to do so when you are posting an image along with the caption. -->
