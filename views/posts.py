@@ -48,12 +48,20 @@ class PostDetailEndpoint(Resource):
         self.current_user = current_user
         
     def patch(self, id):
+        try:
+            id = int(id)
+        except:
+            response_obj = {
+                'message': 'Post ID not valid'
+            }
+            return Response(json.dumps(response_obj), mimetype="application/json", status=400)
         post = Post.query.get(id)
 
         # a user can only edit their own post:
         if not post or post.user_id != self.current_user.id:
             return Response(json.dumps({'message': 'Post does not exist'}), mimetype="application/json", status=404)
        
+
 
         body = request.get_json()
         post.image_url = body.get('image_url') or post.image_url
