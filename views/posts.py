@@ -18,12 +18,21 @@ class PostListEndpoint(Resource):
         # 1. No security implemented; 
         # 2. limit is hard coded (versus coming from the query parameter)
         # 3. No error checking
-
-        
-        data = Post.query.limit(20).all()
-
+        ids_for_me_and_my_friends = get_authorized_user_ids(self.current_user)
+        posts = Post.query.filter(Post.user_id.in_(ids_for_me_and_my_friends))
+        limit = request.args.get('limit')
+        if limit:
+            try:
+                limit = int(limit)
+            except:
+                return Response(json.dumps({'message': 'Limit must be an integer between 1 and 50'}), mimetype="application/json", status=400)
+            if limit > 50 or limit < 1:
+                return Response(json.dumps({'message': 'Limit must be an integer between 1 and 50'}), mimetype="application/json", status=400)
+        else:
+            limit = 10
+        posts = posts.order_by(Post.pub_date.desc()).limit(limit)
         data = [
-            item.to_dict() for item in data
+            item.to_dict() for item in posts.all()
         ]
         return Response(json.dumps(data), mimetype="application/json", status=200)
 
@@ -36,10 +45,13 @@ class PostListEndpoint(Resource):
         alt_text = body.get('alt_text')
         user_id = self.current_user.id # id of the user who is logged in
         
+        try:
         # create post:
-        post = Post(image_url, user_id, caption, alt_text)
-        db.session.add(post)
-        db.session.commit()
+            post = Post(image_url, user_id, caption, alt_text)
+            db.session.add(post)
+            db.session.commit()
+        except:
+            return Response(json.dumps({'message': 'Bad data'}), mimetype="application/json", status=400)
         return Response(json.dumps(post.to_dict()), mimetype="application/json", status=201)
         
 class PostDetailEndpoint(Resource):
@@ -73,7 +85,13 @@ class PostDetailEndpoint(Resource):
         return Response(json.dumps(post.to_dict()), mimetype="application/json", status=200)
     
     def delete(self, id):
-
+        try:
+            id = int(id)
+        except:
+            response_obj = {
+                'message': 'Not a valid ID'
+            }
+            return Response(json.dumps(response_obj), mimetype="application/json", status=400)
         # a user can only delete their own post:
         post = Post.query.get(id)
         if not post or post.user_id != self.current_user.id:
@@ -88,6 +106,13 @@ class PostDetailEndpoint(Resource):
         return Response(json.dumps(serialized_data), mimetype="application/json", status=200)
 
     def get(self, id):
+        try:
+            id = int(id)
+        except:
+            response_obj = {
+                'message': 'Not a valid ID'
+            }
+            return Response(json.dumps(response_obj), mimetype="application/json", status=400)
         post = Post.query.get(id)
 
         # if the user is not allowed to see the post or if the post does not exist, return 404:

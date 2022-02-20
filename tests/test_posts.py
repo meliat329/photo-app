@@ -274,7 +274,7 @@ if __name__ == '__main__':
         TestPostListEndpoint('test_post_post_image_only'),                  # post (create)
         TestPostListEndpoint('test_post_post_bad_data_400_error'),          # post (create)
 
-        # Detail Endpoint Tests
+        # # Detail Endpoint Tests
         TestPostDetailEndpoint('test_post_patch'),                          # patch (update)
         TestPostDetailEndpoint('test_post_patch_blanks_not_overwritten'),   # patch (update)
         TestPostDetailEndpoint('test_post_patch_invalid_id_400'),           # patch (update)

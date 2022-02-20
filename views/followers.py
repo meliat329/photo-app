@@ -11,8 +11,13 @@ class FollowerListEndpoint(Resource):
         self.current_user = current_user
     
     def get(self):
-        # Your code here
-        return Response(json.dumps([]), mimetype="application/json", status=200)
+        followers = Following.query.filter_by(
+            following_id = self.current_user.id).all()
+
+        followers_list_of_dicts = [
+            follower.to_dict_follower() for follower in followers
+        ]
+        return Response(json.dumps(followers_list_of_dicts), mimetype="application/json", status=200)
 
 
 def initialize_routes(api):
