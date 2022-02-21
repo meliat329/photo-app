@@ -1,0 +1,43 @@
+{% for post in posts %}
+<div class="post">
+    <div class="topPost">
+        <h3>{{ post.user.get('username') }}</h4>
+        <i class="fas fa-ellipsis-h"></i>
+    </div>
+    <img src={{ post.image_url }} alt="Post image">
+    <div class="commentsNStuff">
+        <div class="iconBar">
+            <div class="rightIcons">
+                <i class="far fa-heart"></i>
+                <i class="far fa-comment"></i>
+                <i class="far fa-paper-plane"></i>
+            </div>
+            <i class="far fa-bookmark"></i>
+        </div>
+        <div class="likesContainer">
+            <p>{{ post.likes }} likes</p>
+        </div>
+        <div class="caption">
+            <p><b>{{ post.user.get('username') }}</b> {{ post.title }}</p> <a href="#">more</a>
+        </div>
+        <div class="comments">
+            {% if post.comments|length > 1 %}
+            <a href="#">View all {{ post.comments|length }} comments</a>
+            <p><b>{{ post.comments[0].user.get('username') }}</b> {{ post.comments[0].text }}</p>
+            {% else %}
+                {% for comment in post.comments %}
+                    <p><b>{{ comment.user.get('username') }}</b> {{ comment.text }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <p>{{ post.display_time }}</p>
+    </div>
+    <div class="addComment">
+        <div class="interact">
+            <i class="far fa-smile"></i>
+            <p>Add a comment...</p>
+        </div>
+        <p>Post</p>
+    </div>
+</div>
+{% endfor %}

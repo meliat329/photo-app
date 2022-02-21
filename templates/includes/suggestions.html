@@ -1,0 +1,47 @@
+<div class="recPanel">
+    <div class="yourProfile">
+        <img src= {{ user.get('image_url') }} alt="Profile picture">
+        <h2>{{ user.get('username') }}</h2>
+    </div>
+    <p>Suggestions for you</p>
+    <div class="suggestion">
+        <img src={{ suggestions[0].get('image_url') }} alt="Profile picture">
+        <div class="profileContainer">
+            <p class="name">{{ suggestions[0].get('username') }}</p>
+            <p class="sugText">suggested for you</p>
+        </div>
+        <a href="#">follow</a>
+    </div>
+    <div class="suggestion">
+        <img src={{ suggestions[1].get('image_url') }} alt="Profile picture">
+        <div class="profileContainer">
+            <p class="name">{{ suggestions[1].get('username') }}</p>
+            <p class="sugText">suggested for you</p>
+        </div>
+        <a href="#">follow</a>
+    </div>
+    <div class="suggestion">
+        <img src={{ suggestions[2].get('image_url') }} alt="Profile picture">
+        <div class="profileContainer">
+            <p class="name">{{ suggestions[2].get('username') }}</p>
+            <p class="sugText">suggested for you</p>
+        </div>
+        <a href="#">follow</a>
+    </div>
+    <div class="suggestion">
+        <img src={{ suggestions[3].get('image_url') }} alt="Profile picture">
+        <div class="profileContainer">
+            <p class="name">{{ suggestions[3].get('username') }}</p>
+            <p class="sugText">suggested for you</p>
+        </div>
+        <a href="#">follow</a>
+    </div>
+    <div class="suggestion">
+        <img src={{ suggestions[4].get('image_url') }} alt="Profile picture">
+        <div class="profileContainer">
+            <p class="name">{{ suggestions[4].get('username') }}</p>
+            <p class="sugText">suggested for you</p>
+        </div>
+        <a href="#">follow</a>
+    </div>
+</div>
