@@ -16,6 +16,8 @@ class SuggestionsListEndpoint(Resource):
         suggestion_list_of_dicts = [
             sugg.to_dict() for sugg in suggestions
         ]
+
+        suggestion_list_of_dicts = suggestion_list_of_dicts[0:7]
             
         return Response(json.dumps(suggestion_list_of_dicts), mimetype="application/json", status=200)
 
