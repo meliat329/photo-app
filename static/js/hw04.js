@@ -220,6 +220,7 @@ const postComments2HTML = post => {
         html = 
         `
         <a data-post-id=${post.id} onclick="openModal();">View all ${post.comments.length} comments</a>
+        <a href="#">View all ${post.comments.length} comments</a>
         <p><b>${post.comments[0].user.username}</b> ${ post.comments[0].text }</p>
         `;
     }
