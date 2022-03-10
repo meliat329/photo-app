@@ -17,7 +17,7 @@ class Post(db.Model):
     # read-only property for referencing User properties
     user = db.relationship('User', backref="posts", lazy=False)
     comments = db.relationship('Comment', cascade="all,delete-orphan", lazy='select',
-        backref=db.backref('posts', lazy='joined'))
+        backref=db.backref('posts', lazy='joined', order_by='Comment.pub_date.desc()'))
     likes = db.relationship('LikePost', cascade="all,delete-orphan", lazy='select',
         backref=db.backref('posts', lazy='joined'))
 
