@@ -4,13 +4,16 @@ from flask_restful import Resource
 from models import Bookmark, db, Post
 import json
 from . import can_view_post
+import flask_jwt_extended
 
 
 class BookmarksListEndpoint(Resource):
 
+    @flask_jwt_extended.jwt_required()
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def get(self):
         #only show bms associated w current user
         bookmarks = Bookmark.query.filter_by(
@@ -22,6 +25,7 @@ class BookmarksListEndpoint(Resource):
         ]
         return Response(json.dumps(bookmark_list_of_dicts), mimetype="application/json", status=200)
 
+    @flask_jwt_extended.jwt_required()
     def post(self):
         #get post id from request body
         #check user is authorized to bm 
@@ -67,9 +71,11 @@ class BookmarksListEndpoint(Resource):
 
 class BookmarkDetailEndpoint(Resource):
 
+    @flask_jwt_extended.jwt_required()
     def __init__(self, current_user):
         self.current_user = current_user
     
+    @flask_jwt_extended.jwt_required()
     def delete(self, id):
         try:
             id = int(id)
@@ -105,12 +111,12 @@ def initialize_routes(api):
         BookmarksListEndpoint, 
         '/api/bookmarks', 
         '/api/bookmarks/', 
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
 
     api.add_resource(
         BookmarkDetailEndpoint, 
         '/api/bookmarks/<id>', 
         '/api/bookmarks/<id>',
-        resource_class_kwargs={'current_user': api.app.current_user}
+        resource_class_kwargs={'current_user': flask_jwt_extended.current_user}
     )
